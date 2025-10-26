@@ -1,0 +1,477 @@
+---
+title: "Lab 6"
+subtitle: "Math 141, Week 8"
+author: "Insert Your Name Here"
+format: pdf
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Due: Thursday, November 6th at 9am on Gradescope
+
+
+In this lab, you will
+
+1. Construct confidence intervals using both the SE method and the percentile method.
+2. Learn how to modify the confidence interval code, depending on the parameter of interest.
+3. Practice interpreting confidence intervals.
+
+## Add any collaborators here!
+
+I collaborated with...
+
+**Remember that you are not allowed to use any generative AI models (like ChatGPT) on your lab.**
+
+
+## Problems
+
+- For this lab, you don't need to worry about labels and a title for your plots **unless a question specifies otherwise**.
+- Run the following chunk to load the necessary packages.
+
+```{r}
+#load the necessary packages
+library(tidyverse)
+library(infer)
+library(pdxTrees)
+```
+
+
+### Problem 1
+
+In this problem we will examine the **population** dataset of trees in the Gov Tom McCall Waterfront Park in Portland and explore sampling distributions. Recall that in lecture we drew repeated samples from a similar population (trees in Mt Tabor Park) in order to build our conceptual understanding of sampling distributions, but that this is **not** what we do in practice to conduct inference about a population parameter since we almost always only have access to one sample. 
+
+In lecture we focused on the sampling distribution for a sample proportion.  In this problem, we will see how the sampling distribution changes as we change the statistic of interest.
+
+First, load the data.
+
+```{r}
+waterfrontTrees <- get_pdxTrees_parks(park = "Gov Tom McCall Waterfront Park")
+```
+
+a.  Graph the distribution of diameter at breast height for all Waterfront Park trees and describe the shape of the distribution of diameter. 
+
+```{r}
+
+```
+
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+
+b. Compute the average diameter at breast height for all Mt Tabor trees.  Explain why this value is a parameter ($\mu$) and not a statistic ($\overline{x}$).
+
+```{r}
+
+```
+
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+c. Draw 6 random samples of size 10 from `waterfrontTrees` and graph the sampled tree diameter values for each sample.  Describe the shape of the distributions.  
+
+
+```{r}
+
+```
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+d.  Construct and graph a sampling distribution for the mean diameter for samples of size 10.  For the sampled means of tree diameter, also compute the mean and standard error.
+
+```{r}
+
+```
+
+
+e. Does the sampling distribution in (d) have a similar shape as the population distribution in (a)?  If not, explain how it is different.
+
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+f.  Which value is larger: the standard error of the sample mean tree diameter or the standard deviation of all tree diameters?  Explain why this makes sense.
+
+```{r}
+
+```
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+g. Explain why it makes sense to expect that the mean of the sample means is roughly equal to the population parameter.
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+h.  Now, construct and graph a sampling distribution for the mean tree diameter for samples of size **50**.  For the sampled means of tree diameter, also compute the mean and standard error.  Discuss how the shape, center, and spread of the sampling distribution changes as you increase the sample size.
+
+```{r}
+
+```
+
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+i. Let's switch our parameter of interest to the population correlation coefficient ($\rho$) between diameter at breast height (`DBH`) and air polution removal amount (`Pollution_Removal_oz`). Construct three sampling distributions for the sample correlation coefficient ($r$): $n = 10$, $n = 20$, and $n = 100$. Discuss how the shape, center, and spread of the sampling distribution changes as you increase the sample size.
+
+```{r}
+
+```
+
+*************************************************************************
+
+
+
+*************************************************************************
+
+
+
+### Problem 2
+
+For this problem, we are going to return to the example we saw in lecture.
+
+In a recent study, 23 rats showed compassion that surprised scientists. Twenty-three of the 30 rats in the study freed another trapped rat in their cage, even when chocolate served as a distraction and even when the rats would then have to share the chocolate with their freed companion. (Rats, it turns out, love chocolate.) Rats did not open the cage when it was empty or when there was a stuffed animal inside, only when a fellow rat was trapped. We wish to use the sample to estimate the population proportion of rats that show empathy in this way.
+
+a. We want to estimate the proportion of all rats that are empathetic.  Is that a parameter or statistic?  What is the symbol?
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+
+b. What is the correct point estimate?  Include the appropriate symbol.  (Here's a useful example: $\hat{thing}$.)
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+
+c. Describe how to use 30 slips of paper to find one bootstrap statistic. 
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+
+
+
+d. Describe the shape and center of the class's bootstrap distribution (given [here](https://math-141.github.io/slides/math141_wk06fri.html#/sampling-distribution-of-a-statistic-1)).  
+
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+
+e. Explain why we were able to construct (part of) a genuine sampling distribution for the sample proportion of GIFs with animals (given [here](https://math-141.github.io/slides/math141_wk06fri.html#/lets-learn-about-these-ideas-through-an-activity-go-to-tinyurl.commath141-gif.)) but are not able to construct a sampling distribution for these data in this problem.
+
+
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+f. Why are we able to construct a bootstrap distribution for the data in this problem (the rat data) even though we are not able to construct a sampling distribution?
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+g. Since it takes a very long time to construct a bootstrap distribution by hand, let's now fully use `R`. Examine the following code and explain what each line of code is doing. (*Hint*: Try explaining how the code is working in the same way as if you were instructing someone to create a bootstrap distribution using slips of paper.)
+
+```{r}
+# Create a dataframe from the sample data
+rats <- data.frame(empathy = c(rep("Yes", 23), rep("No", 7)))
+
+# Construct the bootstrap distribution
+bootstrap_dist <- rats %>%
+  specify(response = empathy, success = "Yes") %>%
+  generate(reps =  1000, type = "bootstrap") %>%
+  calculate(stat = "prop")
+```
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+h. Plot the bootstrap distribution. Describe the center and shape of the distribution.
+
+```{r}
+
+```
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+i. Construct a 95% confidence interval for the parameter of interest.  Will the whole class get the same interval?  Why or why not? 
+
+
+```{r}
+
+```
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+j.	What does your confidence interval tell us about the population parameter, $p$? 
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+k.	Is there evidence that a majority of all rats will show empathy?  Justify your answer.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+l. Suppose we were interested in conducting a new experiment and obtaining a more precise (i.e., more narrow) confidence interval than the one constructed in part (i). To do so, should we either increase the number of bootstrap samples taken in part (g) or increase the sample size from $n = 30$? Explain the reasoning behind your answer.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+
+### Problem 3
+
+Once again, let's return to the Hollywood movies dataset, `movies`. You may assume that this sample of movies is a reasonably representative sample of all movies.
+
+In this problem, you will construct a confidence interval for the mean Rotten Tomatoes score of thriller movies and a confidence interval for the median Rotten Tomatoes score of thriller movies.
+
+```{r}
+# Read in the data
+movies <- read_csv("https://www.lock5stat.com/datasets2e/HollywoodMovies.csv")
+```
+
+
+a. First, create a data frame containing thriller movies that have a Rotten Tomatoes score. Use this data frame for the rest of the problem.
+
+
+```{r}
+
+```
+
+b. Graph the distribution of Rotten Tomatoes scores for thrillers and comment on the shape, center, and spread of the distribution.
+
+
+```{r}
+
+```
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+c. Construct and graph the bootstrap distribution for the mean Rotten Tomatoes score of thriller movies. Also, construct and graph the bootstrap distribution for the median Rotten Tomatoes score of thriller movies.  Is the shape of each bootstrap distribution the same as the shape of the distribution of the Rotten Tomatoes scores (constructed in part (b))?  If not, explain why not.
+
+```{r}
+
+```
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+d. As we discussed in lecture, the accuracy of these bootstrap methods requires that the bootstrap distribution of the statistic is fairly bell-shaped and symmetric. Are both of the bootstrap distributions from (c) roughly bell-shaped and symmetric?  If one is not, why do you think that is the case?
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+e. Construct a 95% confidence interval for the mean Rotten Tomatoes score of thriller movies.
+
+```{r}
+
+```
+
+
+### Problem 4
+
+In this problem, you will use the confidence interval for the mean Rotten Tomatoes score of thriller movies that you created in Problem 3 to strengthen your conceptual understanding of confidence intervals.
+
+a. Consider the following statement: "The confidence interval from Problem 3, part e) contains the mean Rotten Tomatoes scores of all thriller movies." Is this statement true or false? Explain your reasoning.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+b. Consider the following statement: "We can reasonably expect that 95\% of all thriller movies will have Rotten Tomatoes scores that fall within the 95% confidence interval from Problem 3, part e)." Is this statement true or false? Explain your reasoning.
+
+*********************************************************************************
+
+
+
+
+
+*********************************************************************************
+
+
+
+c. Consider the following statement: "There is a 5% chance that the interval from Problem 3, part e) does not contain the mean Rotten Tomatoes score of all thriller movies." Is this statement true or false? Explain your reasoning.
+
+*********************************************************************************
+
+
+
+
+
+*********************************************************************************
+
+d. Consider the following statement: "We can be 95\% confident that the interval from Problem 3, part e) contains the mean Rotten Tomatoes scores of the sampled thriller movies." Is this statement true or false? Explain your answer.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+e. Consider the following statement: "We can be 95\% confident that the interval from Problem 3, part e) contains the mean Rotten Tomatoes scores of all thriller movies." Is this statement true or false? Explain your answer.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+### Problem 5
+
+
+Let's return to the Somerville happiness survey from Lab 2. Run the code in the following chunk to load the cleaned version of the `somerville` data.
+
+```{r}
+somerville <- read_csv("data/somerville_clean.csv")
+```
+
+Variables in the `somerville` data:
+
+  * `year`: year that response was collected
+  * `happy`: happiness rating, on a scale from 1 to 10 with 10 being most happy
+  * `satisfied_life`: rating for satisfaction with life in general, on a scale from 1 to 10 with 10 being most satisfied
+  * `satisfied_somerville`: rating for satisfaction with Somerville as a place to live, on a scale from 1 to 10 with 10 being most satisfied
+  * `age`: age in years
+  * `children_home`: whether respondent has children under 18 living at home
+  * `ward`: neighborhood ward the respondent lives in
+  * `precinct`: neighborhood precinct the respondent lives in
+  * `student`: whether respondent is a student
+  * `convenient_transport`: rating for how convenient it is to get to where you want to go, on a scale from 1 to 10 with 10 being most satisfied
+  * `direction_somerville`: whether respondent feels the City is headed in the right direction or is on the wrong track
+  * `housing`: whether respondent rents or owns their home
+  * `primary_transport`: primary form of transportation
+  * `lived_here`: years respondent has lived in Somerville
+
+
+a.  Provide an 90% confidence interval for the parameter that measures the linear relationship between `satisfied_somerville` and `convenient_transport`.  Before constructing the bootstrap distribution, remove any rows that have missing values for the variables of interest.  Also, make sure to check that the bootstrap distribution is fairly bell-shaped and symmetric.
+
+```{r}
+
+```
+
+b. Does your interval in (a) provide evidence that there is a positive linear relationship between `satisfied_somerville` and `convenient_transport`.  Justify your answer.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+c. Construct and interpret a 95% confidence interval that estimates, on average, how much more satisfied with Somerville a resident who thinks the city is moving in the "right direction" is than a resident who thinks the city is on the "wrong track".  
+
+Hint: Consider subsetting down the dataset to only residents who answered "Wrong track" or "Right direction" for the `direction_somerville` question.
+
+```{r}
+
+```
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
