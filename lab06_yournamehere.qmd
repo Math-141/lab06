@@ -40,7 +40,7 @@ library(pdxTrees)
 
 ### Problem 1
 
-In this problem we will examine the **population** dataset of trees in the Gov Tom McCall Waterfront Park in Portland and explore sampling distributions. Recall that in lecture we drew repeated samples from a similar population (trees in Mt Tabor Park) in order to build our conceptual understanding of sampling distributions, but that this is **not** what we do in practice to conduct inference about a population parameter since we almost always only have access to one sample. 
+In this problem we will examine the **population** dataset of trees in the Gov Tom McCall Waterfront Park (henceforth "Waterfront Park") in Portland and explore sampling distributions. Recall that in lecture we drew repeated samples from a similar population (trees in Mt Tabor Park) in order to build our conceptual understanding of sampling distributions, but that this is **not** what we do in practice to conduct inference about a population parameter since we almost always only have access to one sample. 
 
 In lecture we focused on the sampling distribution for a sample proportion.  In this problem, we will see how the sampling distribution changes as we change the statistic of interest.
 
@@ -64,7 +64,7 @@ a.  Graph the distribution of diameter at breast height for all Waterfront Park 
 *************************************************************************
 
 
-b. Compute the average diameter at breast height for all Mt Tabor trees.  Explain why this value is a parameter ($\mu$) and not a statistic ($\overline{x}$).
+b. Compute the average diameter at breast height for all trees in Waterfront Park.  Explain why this value is a parameter ($\mu$) and not a statistic ($\overline{x}$).
 
 ```{r}
 
