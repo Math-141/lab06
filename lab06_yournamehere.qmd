@@ -90,7 +90,7 @@ c. Draw 6 random samples of size 10 from `waterfrontTrees` and graph the sampled
 
 *************************************************************************
 
-d.  Construct and graph a sampling distribution for the mean diameter for 4 1000 samples of size 10.  For the sampled means of tree diameter, also compute the mean and standard error.
+d.  Construct and graph a sampling distribution for the mean diameter for 1000 samples of size 10.  For the sampled means of tree diameter, also compute the mean and standard error.
 
 ```{r}
 
